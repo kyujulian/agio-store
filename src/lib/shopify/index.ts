@@ -8,6 +8,8 @@ import { isShopifyError } from '@/lib/type-guards';
 
 
 import {
+  Connection,
+  Image,
   Product,
   ShopifyProduct,
   ShopifyCollectionProductsOperation
@@ -78,7 +80,21 @@ export async function shopifyFetch<T>({
   }
 }
 
+const reshapeImages = (images : Connection<Image>, productTitle: string) => {
+  const flattened = removeEdgesAndNodes(images);
+  
+  return flattened.map(( image) => {
+    const filename = image.url.match(/.*\/(.*)\..*/)[1];
+    return {
+      ...filename,
+      altText: image.altText || `${productTitle} - ${filename}`
+    }
+  });
+};
 
+const removeEdgesAndNodes = (array: Connection<any>) => {
+  return array.edges.map((edge) => edge.node);
+}
 const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
   if (!product || (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))){
     return undefined;
