@@ -21,7 +21,7 @@ export default async function Home() {
           <h1 className="text-[42px] font-bold"> Agio StoreFront </h1>
           <ul className="text-slate-200 p-7 w-[500px] rounded-md border-[1px] border-slate-200">
             {homepageItems.map((item) => (
-              <li className="py-5">
+              <li key={item.id} className="py-5">
                 <b>Product Title:</b> {item.title} <br />
                 <b>Description:</b>
                 {item.description}
