@@ -10,6 +10,7 @@ import { Suspense } from "react";
 import Cart from "@/components/cart";
 
 import MobileMenu from "./mobile-menu";
+import Search from "./search";
 
 export default async function Navbar() {
   const menu = await getMenu("main-menu");
@@ -49,7 +50,7 @@ export default async function Navbar() {
         </div>
 
         <div className="hidden justify-center md:flex md:w-1/3">
-          {/* <Search /> */}
+          <Search />
         </div>
         <div className="flex justify-end md:w-1/3">
           <Suspense>
