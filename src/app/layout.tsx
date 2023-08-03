@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 
 import Navbar from "@/components/layout/navbar";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        <Navbar /> {children}
+        <Suspense>
+          <Navbar />
+        </Suspense>
+        <main>{children}</main>
       </body>
     </html>
   );
