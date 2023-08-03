@@ -25,13 +25,13 @@ export default function Label({
         <h3 className="mr-4 inline pl-2 leading-none tracking-tight">
           {title}
         </h3>
+        <Price
+          className="flex-none rounded-full bg-blue-600 p-2 text-white"
+          amount={amount}
+          currencyCode={currencyCode}
+          currencyCodeClassName="hidden @[275]/label:inline"
+        />
       </div>
-      <Price
-        className="flex-none rounded-full bg-blue-600 p-2 text-white"
-        amount={amount}
-        currencyCode={currencyCode}
-        currencyCodeClassName="hidden @[275]/label:inline"
-      />
     </div>
   );
 }
