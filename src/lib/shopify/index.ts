@@ -5,6 +5,7 @@ import {
 } from "@/lib/constants";
 
 import { getCollectionProductsQuery } from "./queries/collection";
+import { getMenuQuery } from "./queries/menu";
 
 import { isShopifyError } from "@/lib/type-guards";
 
@@ -12,6 +13,8 @@ import {
   Connection,
   Image,
   Product,
+  Menu,
+  ShopifyMenuOperation,
   ShopifyProduct,
   ShopifyCollectionProductsOperation,
 } from "./types";
@@ -155,5 +158,26 @@ export async function getCollectionProducts({
 
   return reshapeProducts(
     removeEdgesAndNodes(res.body.data.collection.products)
+  );
+}
+
+
+
+export async function getMenu(handle: string) : Promise<Menu[]> {
+  const res = await shopifyFetch<ShopifyMenuOperation> ({
+    query: getMenuQuery,
+    tags: [TAGS.collections],
+    variables: {
+      handle
+    }
+  });
+
+
+  return (
+    res.body?.data?.menu?.items.map((item: {id: string,title: string , url: string}) => ({
+      id: item.id,
+      title: item.title,
+      path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
+      })) || []
   );
 }

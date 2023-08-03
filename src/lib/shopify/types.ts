@@ -4,6 +4,12 @@ export type Product = Omit<ShopifyProduct, 'variants' | 'images' > & {
 }
 
 
+export type Menu = {
+  id: string,
+  title: string,
+  path: string
+}
+
 export type Edge<T> = {
   node: T;
 }
@@ -24,6 +30,22 @@ export type ProductOption = {
   name: string;
   values: string[];
 };
+
+
+export type ShopifyMenuOperation = {
+  data: {
+    menu?: {
+      items: {
+        id: string,
+        title: string;
+        url: string;
+      }[]
+    };
+  };
+  variables: {
+    handle: string
+  }
+}
 
 export type ProductVariant = {
   id: string;
