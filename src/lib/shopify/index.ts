@@ -133,11 +133,11 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
 };
 
 export async function getCollectionProducts({
-  collectionId,
+  collection,
   reverse,
   sortKey,
 }: {
-  collectionId: string;
+  collection: string;
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
@@ -145,14 +145,14 @@ export async function getCollectionProducts({
     query: getCollectionProductsQuery,
     tags: [TAGS.collections, TAGS.products],
     variables: {
-      handle: collectionId,
+      handle: collection,
       reverse,
       sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
     },
   });
 
   if (!res.body.data.collection) {
-    console.log(`No collection found for handle: ${collectionId}`);
+    console.log(`No collection found for handle: ${collection}`);
     return [];
   }
 
