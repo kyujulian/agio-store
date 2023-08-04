@@ -14,7 +14,19 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-montserrat)']
+      },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
+        }
+      },
+      animation: {
+        fadeIn: 'fadeIn .3s ease-in-out',
+        carousel: 'marquee 60s linear infinite',
+        blink: 'blink 1.4s both infinite',
       }
+
     },
   },
   plugins: [],

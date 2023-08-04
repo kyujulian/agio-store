@@ -1,12 +1,20 @@
-import { getCollectionProducts } from "@/lib/shopify";
+import { getCollectionProducts, getCollections } from "@/lib/shopify";
 import Link from "next/link";
 import { GridTileImage } from "./grid/tile";
 
 export default async function Carousel() {
   const products = await getCollectionProducts({
-    collection: "Caps",
+    collection: `hidden-homepage-carousel`,
   });
 
+  const collections = await getCollections();
+
+  console.log("AVAILABLE COLLECTIONS");
+  console.log(
+    collections.map((collection) => {
+      return collection.handle;
+    })
+  );
   if (!products?.length) {
     return null;
   }

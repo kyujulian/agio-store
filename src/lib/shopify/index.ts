@@ -4,7 +4,7 @@ import {
   TAGS,
 } from "@/lib/constants";
 
-import { getCollectionProductsQuery } from "./queries/collection";
+import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
 import { getMenuQuery } from "./queries/menu";
 
 import { isShopifyError } from "@/lib/type-guards";
@@ -13,7 +13,11 @@ import {
   Connection,
   Image,
   Product,
+  Collection,
   Menu,
+  SEO,
+  ShopifyCollection,
+  ShopifyCollectionsOperation,
   ShopifyMenuOperation,
   ShopifyProduct,
   ShopifyCollectionProductsOperation,
@@ -150,6 +154,8 @@ export async function getCollectionProducts({
       sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
     },
   });
+  console.log("WHAT THE FUCK")
+  console.log(res.body.data)
 
   if (!res.body.data.collection) {
     console.log(`No collection found for handle: ${collection}`);
@@ -162,6 +168,61 @@ export async function getCollectionProducts({
 }
 
 
+export async function getCollections() : Promise<Collection[]> {
+
+  const res = await shopifyFetch<ShopifyCollectionsOperation> ({
+    query: getCollectionsQuery,
+    tags: [TAGS.collections],
+  })
+
+
+  const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
+  const collections = [
+    {
+      handle: '',
+      title: 'All',
+      description: "All products",
+      seo :{
+        title: 'All',
+        description: "All products"
+      },
+      path: "/search",
+      updatedAt: new Date().toISOString(),
+    },
+    ...reshapeCollections(shopifyCollections)
+  ];
+
+  return collections
+
+}
+
+
+const reshapeCollection = (collection: ShopifyCollection) : Collection | undefined =>{
+  if (!collection) return undefined;
+
+  return {
+    ...collection,
+    path: `/search/${collection.handle}`,
+  };
+}
+
+
+const reshapeCollections = (collections: ShopifyCollection[]) => {
+  const reshapedCollections = [];
+  
+
+  for (const collection of collections) {
+    if (collection) {
+      const reshapedCollection = reshapeCollection(collection);
+
+      if (reshapedCollection) {
+        reshapedCollections.push(reshapedCollection);
+      }
+    }
+  }
+  return reshapedCollections
+}
+  
 
 export async function getMenu(handle: string) : Promise<Menu[]> {
   const res = await shopifyFetch<ShopifyMenuOperation> ({
