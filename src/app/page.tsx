@@ -2,6 +2,8 @@ import { Montserrat } from "@next/font/google";
 // import { GridItem } from "components/grid";
 import { getCollectionProducts } from "@/lib/shopify";
 import { ThreeItemGrid } from "@/components/grid/three-items";
+import { Suspense } from "react";
+import Carousel from "@/components/carousel";
 
 export const metadata = {
   description:
@@ -18,6 +20,9 @@ export default async function Home() {
   return (
     <>
       <ThreeItemGrid />
+      <Suspense>
+        <Carousel />
+      </Suspense>
       {/* <main className="flex h-screen">
         <div className=" h-full flex-col w-full flex justify-center  items-center ">
           <h1 className="text-[42px] font-bold"> Agio StoreFront </h1>

@@ -53,8 +53,6 @@ export async function ThreeItemGrid() {
     collection: `Caps`,
   });
 
-  console.log(homepageItems);
-
   if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) {
     return null;
   }
