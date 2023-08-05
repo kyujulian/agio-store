@@ -6,6 +6,7 @@ import {
 
 import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
 import { getMenuQuery } from "./queries/menu";
+import { getProductQuery, getProductsQuery } from "./queries/product";
 
 import { isShopifyError } from "@/lib/type-guards";
 
@@ -20,6 +21,8 @@ import {
   ShopifyCollectionsOperation,
   ShopifyMenuOperation,
   ShopifyProduct,
+  ShopifyProductOperation,
+  ShopifyProductsOperation,
   ShopifyCollectionProductsOperation,
 } from "./types";
 
@@ -239,4 +242,43 @@ export async function getMenu(handle: string) : Promise<Menu[]> {
       path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
       })) || []
   );
+}
+
+
+export async function getProduct(handle: string) : Promise<Product | undefined> {
+  const res = await shopifyFetch<ShopifyProductOperation> ({
+    query: getProductQuery,
+    tags: [TAGS.products],
+    variables: {
+      handle,
+    }
+  });
+
+  console.log(res)
+  return reshapeProduct(res.body.data.product, false)
+}
+
+
+
+export async function getProducts({
+    query,
+    reverse,
+    sortKey
+} : {
+  query?: string,
+  reverse? : boolean,
+  sortKey? : string;
+}) : Promise<Product[]> {
+  const res = await shopifyFetch<ShopifyProductsOperation> ({
+    query: getProductsQuery,
+    tags: [TAGS.products],
+    variables: {
+      query,
+      reverse,
+      sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
+    }
+  });
+
+  return reshapeProducts(removeEdgesAndNodes(res.body.data.products))
+
 }

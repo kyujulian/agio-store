@@ -4,6 +4,7 @@ export type Product = Omit<ShopifyProduct, 'variants' | 'images' > & {
 }
 
 
+
 export type Menu = {
   id: string,
   title: string,
@@ -31,6 +32,24 @@ export type ProductOption = {
   values: string[];
 };
 
+export type ShopifyProductOperation = {
+  data: { product: ShopifyProduct };
+  variables: {
+    handle: string
+  }
+}
+
+
+export type ShopifyProductsOperation = {
+  data: {
+    products: Connection<ShopifyProduct>
+  };
+  variables: {
+    query? : string,
+    reverse? : boolean,
+    sortKey?: string
+  }
+}
 
 export type ShopifyMenuOperation = {
   data: {
