@@ -4,7 +4,8 @@ import {
   TAGS,
 } from "@/lib/constants";
 
-import { getCollectionProductsQuery } from "./queries/collection";
+import { getCollectionProductsQuery, getCollectionsQuery } from "./queries/collection";
+import { getMenuQuery } from "./queries/menu";
 
 import { isShopifyError } from "@/lib/type-guards";
 
@@ -12,6 +13,12 @@ import {
   Connection,
   Image,
   Product,
+  Collection,
+  Menu,
+  SEO,
+  ShopifyCollection,
+  ShopifyCollectionsOperation,
+  ShopifyMenuOperation,
   ShopifyProduct,
   ShopifyCollectionProductsOperation,
 } from "./types";
@@ -130,11 +137,11 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
 };
 
 export async function getCollectionProducts({
-  collectionId,
+  collection,
   reverse,
   sortKey,
 }: {
-  collectionId: string;
+  collection: string;
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
@@ -142,18 +149,94 @@ export async function getCollectionProducts({
     query: getCollectionProductsQuery,
     tags: [TAGS.collections, TAGS.products],
     variables: {
-      handle: collectionId,
+      handle: collection,
       reverse,
       sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
     },
   });
 
   if (!res.body.data.collection) {
-    console.log(`No collection found for handle: ${collectionId}`);
+    console.log(`No collection found for handle: ${collection}`);
     return [];
   }
 
   return reshapeProducts(
     removeEdgesAndNodes(res.body.data.collection.products)
+  );
+}
+
+
+export async function getCollections() : Promise<Collection[]> {
+
+  const res = await shopifyFetch<ShopifyCollectionsOperation> ({
+    query: getCollectionsQuery,
+    tags: [TAGS.collections],
+  })
+
+
+  const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
+  const collections = [
+    {
+      handle: '',
+      title: 'All',
+      description: "All products",
+      seo :{
+        title: 'All',
+        description: "All products"
+      },
+      path: "/search",
+      updatedAt: new Date().toISOString(),
+    },
+    ...reshapeCollections(shopifyCollections)
+  ];
+
+  return collections
+
+}
+
+
+const reshapeCollection = (collection: ShopifyCollection) : Collection | undefined =>{
+  if (!collection) return undefined;
+
+  return {
+    ...collection,
+    path: `/search/${collection.handle}`,
+  };
+}
+
+
+const reshapeCollections = (collections: ShopifyCollection[]) => {
+  const reshapedCollections = [];
+  
+
+  for (const collection of collections) {
+    if (collection) {
+      const reshapedCollection = reshapeCollection(collection);
+
+      if (reshapedCollection) {
+        reshapedCollections.push(reshapedCollection);
+      }
+    }
+  }
+  return reshapedCollections
+}
+  
+
+export async function getMenu(handle: string) : Promise<Menu[]> {
+  const res = await shopifyFetch<ShopifyMenuOperation> ({
+    query: getMenuQuery,
+    tags: [TAGS.collections],
+    variables: {
+      handle
+    }
+  });
+
+
+  return (
+    res.body?.data?.menu?.items.map((item: {id: string,title: string , url: string}) => ({
+      id: item.id,
+      title: item.title,
+      path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
+      })) || []
   );
 }

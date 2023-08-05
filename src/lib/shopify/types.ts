@@ -4,6 +4,12 @@ export type Product = Omit<ShopifyProduct, 'variants' | 'images' > & {
 }
 
 
+export type Menu = {
+  id: string,
+  title: string,
+  path: string
+}
+
 export type Edge<T> = {
   node: T;
 }
@@ -25,6 +31,22 @@ export type ProductOption = {
   values: string[];
 };
 
+
+export type ShopifyMenuOperation = {
+  data: {
+    menu?: {
+      items: {
+        id: string,
+        title: string;
+        url: string;
+      }[]
+    };
+  };
+  variables: {
+    handle: string
+  }
+}
+
 export type ProductVariant = {
   id: string;
   title: string;
@@ -36,6 +58,24 @@ export type ProductVariant = {
   price: Money;
 }
 
+export type Collection = ShopifyCollection & {
+  path: string;
+};
+
+export type ShopifyCollectionsOperation =  {
+  data: {
+    collections: Connection<ShopifyCollection>
+  }
+}
+
+
+export type ShopifyCollection = {
+  handle: string;
+  title: string;
+  description: string;
+  seo: SEO;
+  updatedAt: string;
+}
 
 export type ShopifyProduct = {
   id: string;

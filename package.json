@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.16",
+    "@headlessui/tailwindcss": "^0.2.0",
     "@next/font": "^13.4.12",
     "@shopify/shopify-api": "^7.5.0",
     "@types/node": "20.4.5",
@@ -25,6 +27,7 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@heroicons/react": "^2.0.18",
     "clsx": "^2.0.0"
   }
 }
