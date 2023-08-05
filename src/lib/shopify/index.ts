@@ -154,8 +154,6 @@ export async function getCollectionProducts({
       sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
     },
   });
-  console.log("WHAT THE FUCK")
-  console.log(res.body.data)
 
   if (!res.body.data.collection) {
     console.log(`No collection found for handle: ${collection}`);
