@@ -95,7 +95,7 @@ const reshapeImages = (images: Connection<Image>, productTitle: string) => {
   return flattened.map((image) => {
     const filename = image.url.match(/.*\/(.*)\..*/)[1];
     return {
-      ...filename,
+      ...image,
       altText: image.altText || `${productTitle} - ${filename}`,
     };
   });
@@ -254,7 +254,6 @@ export async function getProduct(handle: string) : Promise<Product | undefined> 
     }
   });
 
-  console.log(res)
   return reshapeProduct(res.body.data.product, false)
 }
 

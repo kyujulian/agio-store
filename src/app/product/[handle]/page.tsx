@@ -47,8 +47,10 @@ export default async function ProductPage({
 }: {
   params: { handle: string };
 }) {
-  const products = await getProducts({});
+  // const products = await getProducts({});
   const product = await getProduct(params.handle);
+
+  console.log('IMAGES', product);
 
   if (!product) {
     return notFound();
@@ -70,7 +72,7 @@ export default async function ProductPage({
             <Gallery
               images={product.images.map((image: Image) => ({
                 src: image.url,
-                alt: image.altText,
+                altText: image.altText,
               }))}
             />
           </div>

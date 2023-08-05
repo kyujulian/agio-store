@@ -1,6 +1,6 @@
-import { getCollectionProducts, getCollections } from "@/lib/shopify";
-import Link from "next/link";
-import { GridTileImage } from "./grid/tile";
+import { getCollectionProducts, getCollections } from '@/lib/shopify';
+import Link from 'next/link';
+import { GridTileImage } from './grid/tile';
 
 export default async function Carousel() {
   const products = await getCollectionProducts({
@@ -8,13 +8,6 @@ export default async function Carousel() {
   });
 
   const collections = await getCollections();
-
-  console.log("AVAILABLE COLLECTIONS");
-  console.log(
-    collections.map((collection) => {
-      return collection.handle;
-    })
-  );
   if (!products?.length) {
     return null;
   }
