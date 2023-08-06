@@ -31,8 +31,6 @@ export default async function ProductPage({
   // const products = await getProducts({});
   const product = await getProduct(params.handle);
 
-  console.log('IMAGES', product);
-
   if (!product) {
     return notFound();
   }
