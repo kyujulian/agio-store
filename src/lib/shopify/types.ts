@@ -1,23 +1,21 @@
-export type Product = Omit<ShopifyProduct, 'variants' | 'images' > & {
+export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
   variants: ProductVariant[];
   images: Image[];
-}
-
-
+};
 
 export type Menu = {
-  id: string,
-  title: string,
-  path: string
-}
+  id: string;
+  title: string;
+  path: string;
+};
 
 export type Edge<T> = {
   node: T;
-}
+};
 
 export type Connection<T> = {
   edges: Array<Edge<T>>;
-}
+};
 
 export type Image = {
   url: string;
@@ -35,36 +33,35 @@ export type ProductOption = {
 export type ShopifyProductOperation = {
   data: { product: ShopifyProduct };
   variables: {
-    handle: string
-  }
-}
-
+    handle: string;
+  };
+};
 
 export type ShopifyProductsOperation = {
   data: {
-    products: Connection<ShopifyProduct>
+    products: Connection<ShopifyProduct>;
   };
   variables: {
-    query? : string,
-    reverse? : boolean,
-    sortKey?: string
-  }
-}
+    query?: string;
+    reverse?: boolean;
+    sortKey?: string;
+  };
+};
 
 export type ShopifyMenuOperation = {
   data: {
     menu?: {
       items: {
-        id: string,
+        id: string;
         title: string;
         url: string;
-      }[]
+      }[];
     };
   };
   variables: {
-    handle: string
-  }
-}
+    handle: string;
+  };
+};
 
 export type ProductVariant = {
   id: string;
@@ -75,18 +72,17 @@ export type ProductVariant = {
     value: string;
   }[];
   price: Money;
-}
+};
 
 export type Collection = ShopifyCollection & {
   path: string;
 };
 
-export type ShopifyCollectionsOperation =  {
+export type ShopifyCollectionsOperation = {
   data: {
-    collections: Connection<ShopifyCollection>
-  }
-}
-
+    collections: Connection<ShopifyCollection>;
+  };
+};
 
 export type ShopifyCollection = {
   handle: string;
@@ -94,7 +90,7 @@ export type ShopifyCollection = {
   description: string;
   seo: SEO;
   updatedAt: string;
-}
+};
 
 export type ShopifyProduct = {
   id: string;
@@ -105,8 +101,8 @@ export type ShopifyProduct = {
   descriptionHtml: string;
   options: ProductOption[];
   priceRange: {
-    maxVariantPrice : Money;
-    minVariantPrice : Money;
+    maxVariantPrice: Money;
+    minVariantPrice: Money;
   };
   variants: Connection<ProductVariant>;
   featuredImage: Image;
@@ -115,17 +111,24 @@ export type ShopifyProduct = {
   tags: string[];
   updateAt: string;
 };
+export type ShopifyProductRecommendationsOperation = {
+  data: {
+    productRecommendations: ShopifyProduct[];
+  };
+  variables: {
+    productId: string;
+  };
+};
 
 export type SEO = {
   title: string;
   description: string;
-}
-
+};
 
 export type Money = {
   amount: string;
   currencyCode: string;
-}
+};
 
 export type ShopifyCollectionProductsOperation = {
   data: {
@@ -137,5 +140,5 @@ export type ShopifyCollectionProductsOperation = {
     handle: string;
     reverse?: boolean;
     sortKey?: string;
-  }
-}
+  };
+};
