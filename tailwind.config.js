@@ -19,6 +19,11 @@ module.exports = {
         marquee: {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-100%)" },
+        },
+        blink: {
+          '0%' : { opacity: 0.2},
+          '20%' : {opacity: 1},
+          '100%' : {opacity: 0.2}
         }
       },
       animation: {
@@ -29,5 +34,5 @@ module.exports = {
 
     },
   },
-  plugins: [],
-}
+    plugins: [],
+  }

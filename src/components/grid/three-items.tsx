@@ -1,23 +1,23 @@
-import { getCollectionProducts } from "@/lib/shopify";
-import Link from "next/link";
+import { getCollectionProducts } from '@/lib/shopify';
+import Link from 'next/link';
 
-import { GridTileImage } from "@/components/grid/tile";
+import { GridTileImage } from '@/components/grid/tile';
 
-import type { Product } from "@/lib/shopify/types";
+import type { Product } from '@/lib/shopify/types';
 
 function ThreeItemGridItem({
   item,
   size,
 }: {
   item: Product;
-  size: "full" | "half";
+  size: 'full' | 'half';
 }) {
   return (
     <div
       className={
-        size === "full"
-          ? "md:col-span-4 md:row-span-2"
-          : "md:col-span-2 md:row-span-1"
+        size === 'full'
+          ? 'md:col-span-4 md:row-span-2'
+          : 'md:col-span-2 md:row-span-1'
       }
     >
       <Link
@@ -28,14 +28,14 @@ function ThreeItemGridItem({
           src={item.featuredImage.url}
           fill
           sizes={
-            size === "full"
-              ? "(min-width: 768px) 66vw, 100vw"
-              : "(min-width: 768px) 33vw, 50vw"
+            size === 'full'
+              ? '(min-width: 768px) 66vw, 100vw'
+              : '(min-width: 768px) 33vw, 50vw'
           }
           priority={true}
           alt={item.title}
           label={{
-            position: size === "full" ? "center" : "bottom",
+            position: size === 'full' ? 'center' : 'bottom',
             title: item.title as string,
             amount: item.priceRange.maxVariantPrice.amount,
             currencyCode: item.priceRange.maxVariantPrice.currencyCode,
