@@ -82,11 +82,14 @@ async function RelatedProducts({ id }: { id: string }) {
   }
   return (
     <div className="py-8">
-      <h2>RelatedProducts</h2>
-      <ul>
+      <h2 className="mb-4 text-2xl font-bold">RelatedProducts</h2>
+      <ul className="flex w-full gap-4 overflow-x-auto pt-1">
         {relatedProducts.map((product) => (
           <li key={product.handle}>
-            <Link href={`/products/${product.handle}`}>
+            <Link
+              className="relative h-full w-full"
+              href={`/products/${product.handle}`}
+            >
               <GridTileImage
                 alt={product.title}
                 label={{
