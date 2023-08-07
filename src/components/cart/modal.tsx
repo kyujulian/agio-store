@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import type { Cart } from '@/lib/shopify/types';
 import OpenCart from './open-cart';
 import { DEFAULT_OPTION } from '@/lib/shopify/constants';
@@ -27,8 +28,15 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const quantityRef = useRef(cart?.totalQuantity);
-  const openCart = () => setIsOpen(true);
-  const closeCart = () => setIsOpen(false);
+  const openCart = () => {
+    console.log('open clicked');
+    setIsOpen(true);
+  };
+
+  const closeCart = () => {
+    console.log('close clicked');
+    setIsOpen(false);
+  };
 
   useEffect(() => {
     if (cart?.totalQuantity !== quantityRef.current) {
@@ -37,7 +45,11 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
   }, [isOpen, cart?.totalQuantity, quantityRef]);
   return (
     <>
-      <button aria-label="Open cart" onClick={openCart}>
+      <button
+        className={clsx({ hidden: isOpen, block: !isOpen })}
+        aria-label="Open cart"
+        onClick={openCart}
+      >
         <OpenCart quantity={cart?.totalQuantity} />
       </button>
       <Transition show={isOpen}>
