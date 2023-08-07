@@ -1,4 +1,7 @@
+'use server';
+
 import { addToCart, createCart, getCart } from '@/lib/shopify';
+//this vv only works in server components
 import { cookies } from 'next/headers';
 
 export const addItem = async (

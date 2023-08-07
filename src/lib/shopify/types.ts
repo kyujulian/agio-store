@@ -142,3 +142,72 @@ export type ShopifyCollectionProductsOperation = {
     sortKey?: string;
   };
 };
+
+
+//cart 
+export type CartItem = {
+  id: string;
+  quantity: number;
+  cost: {
+    totalAmount: Money;
+  };
+  merchandise: {
+    id: string;
+    title: string;
+    selectedOption: {
+      name: string;
+      value: string;
+    }[]
+    product: Product;
+  };
+};
+
+
+export type ShopifyCart = {
+  id: string,
+  checkoutUrl:  string,
+  cost: {
+    subtotalAmount: Money,
+    totalAmount: Money,
+    totalTaxAmount: Money
+  }
+  lines: Connection<CartItem>;
+  totalQuantity: number
+}
+
+//feels like a hack
+export type Cart = Omit<ShopifyCart, 'lines'> & {
+  lines: CartItem[];
+};
+
+export type ShopifyCartOperation = {
+  data: {
+    cart: ShopifyCart;
+  };
+  variables: {
+    cartId: string;
+  };
+};
+
+export type ShopifyCreateCartOperation = {
+  data: { 
+    cartCreate: {
+      cart: ShopifyCart;
+    };
+  };
+}
+
+export type ShopifyAddToCartOperation = {
+  data : {
+    cartLinesAdd: {
+      cart: ShopifyCart;
+    };
+  };
+  variables : {
+    cartId: string;
+    lines: {
+      merchandiseId: string;
+      quantity: number;
+    }[]
+  };
+};

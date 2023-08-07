@@ -45,9 +45,11 @@ export function AddToCart({
         //Safeguard in case someone messes with `disabled` in devools
         if (!availableForSale || !selectedVariantId) return;
 
+        console.log('button clicked');
         startTransition(async () => {
           const error = await addItem(selectedVariantId);
           if (error) {
+            console.log('ERROR?!');
             // Trigger the error boundary in the root error.js
             throw new Error(error.toString());
           }

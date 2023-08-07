@@ -63,7 +63,10 @@ export default async function Footer() {
           <p> Designed as Portfolio project</p>
           <p className="md:ml-auto">
             by{' '}
-            <a href="" className="text-black dark:text-white">
+            <a
+              href="https://github.com/kyujulian/"
+              className="text-black dark:text-white"
+            >
               ♦ Julian
             </a>
           </p>
