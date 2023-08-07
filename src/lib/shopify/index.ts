@@ -17,6 +17,8 @@ import {
 
 import {
   addToCartMutation,
+  removeFromCartMutation,
+  editCartItemsMutation,
   createCartMutation,
 } from './mutations/cart';
 
@@ -37,11 +39,13 @@ import {
   ShopifyProduct,
   ShopifyCartOperation,
   ShopifyCreateCartOperation,
+  ShopifyRemoveFromCartOperation,
   ShopifyAddToCartOperation,
   ShopifyProductOperation,
   ShopifyProductsOperation,
   ShopifyCollectionProductsOperation,
   ShopifyProductRecommendationsOperation,
+  ShopifyUpdateCartOperation,
 } from './types';
 import { getCartQuery } from './queries/cart';
 
@@ -350,6 +354,37 @@ export async function addToCart (
     return reshapeCart(res.body.data.cartLinesAdd.cart);
 }
 
+export async function removeFromCart ( cartId: string, lineIds: string[]) : Promise<Cart> {
+  const res = await shopifyFetch<ShopifyRemoveFromCartOperation> ({
+    query: removeFromCartMutation,
+    variables: {
+      cartId,
+      lineIds
+    },
+    cache: 'no-store'
+  });
+
+  return reshapeCart(res.body.data.cartLinesRemove.cart);
+
+
+}
+
+export async function updateCart(
+  cartId: string,
+  lines: { id: string; merchandiseId: string; quantity: number }[],
+): Promise<Cart> {
+  const res = await shopifyFetch<ShopifyUpdateCartOperation>({
+    query: editCartItemsMutation,
+    variables: {
+      cartId,
+      lines,
+    },
+    cache: 'no-store',
+  });
+
+  return reshapeCart(res.body.data.cartLinesUpdate.cart);
+}
+
 function reshapeCart(cart: ShopifyCart) : Cart {
   if (!cart.cost?.totalTaxAmount) {
     cart.cost.totalTaxAmount = {
@@ -363,4 +398,5 @@ function reshapeCart(cart: ShopifyCart) : Cart {
     lines: removeEdgesAndNodes(cart.lines)
   }
 }
+
 

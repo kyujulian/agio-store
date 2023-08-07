@@ -11,5 +11,5 @@ export default async function Cart() {
     cart = await getCart(cartId);
   }
 
-  return <CartModal />;
+  return <CartModal cart={cart} />;
 }

@@ -154,7 +154,7 @@ export type CartItem = {
   merchandise: {
     id: string;
     title: string;
-    selectedOption: {
+    selectedOptions: {
       name: string;
       value: string;
     }[]
@@ -162,6 +162,33 @@ export type CartItem = {
   };
 };
 
+export type ShopifyRemoveFromCartOperation = {
+  data: {
+    cartLinesRemove: {
+      cart: ShopifyCart;
+    };
+  };
+  variables: {
+    cartId: string;
+    lineIds: string[];
+  }
+}
+
+export type ShopifyUpdateCartOperation = {
+  data: {
+    cartLinesUpdate: {
+      cart: ShopifyCart;
+    };
+  };
+  variables: {
+    cartId: string;
+    lines: {
+      id: string;
+      merchandiseId: string;
+      quantity: number;
+    }[];
+  };
+};
 
 export type ShopifyCart = {
   id: string,
