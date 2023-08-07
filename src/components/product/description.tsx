@@ -1,3 +1,4 @@
+import { AddToCart } from '@/components/cart';
 import Price from '@/components/price';
 import { Product } from '@/lib/shopify/types';
 import Prose from '@/components/prose';
@@ -25,6 +26,10 @@ export default function ProductDescription({ product }: { product: Product }) {
           />
         ) : null}
       </div>
+      <AddToCart
+        variants={product.variants}
+        availableForSale={product.availableForSale}
+      />
     </>
   );
 }
