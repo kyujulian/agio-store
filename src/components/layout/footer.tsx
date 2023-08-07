@@ -41,7 +41,7 @@ export default async function Footer() {
           <a
             className="flex h-12 flex-none items-center justify-center rounded-md border border-neutral-200 bg-white text-xs text-black dark:border-neutral-700 dark:bg-black dark:text-white"
             aria-label="Github Repository"
-            href="https://vercel.com/templates/next.js/nextjs-commerce"
+            href="https://github.com/kyujulian/agio-store"
           >
             <div className="p-3">
               <GithubIcon className="h-6" />
