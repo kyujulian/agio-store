@@ -3,6 +3,7 @@ import {
   HIDDEN_PRODUCT_TAG,
   TAGS,
 } from '@/lib/constants';
+import { getPageQuery } from './queries/page';
 
 import {
   getCollectionProductsQuery,
@@ -31,6 +32,8 @@ import {
   Collection,
   Menu,
   SEO,
+  Page,
+  ShopifyPageOperation,
   Cart,
   ShopifyCart,
   ShopifyCollection,
@@ -197,6 +200,7 @@ export async function getCollections(): Promise<Collection[]> {
     tags: [TAGS.collections],
   });
 
+
   const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
   const collections = [
     {
@@ -214,6 +218,14 @@ export async function getCollections(): Promise<Collection[]> {
   ];
 
   return collections;
+}
+export async function getPage(handle: string) : Promise<Page> {
+  const res = await shopifyFetch<ShopifyPageOperation> ({
+    query: getPageQuery,
+    variables: { handle }
+  });
+
+  return res.body.data.pageByHandle;
 }
 
 const reshapeCollection = (
