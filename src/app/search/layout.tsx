@@ -2,35 +2,28 @@ import { defaultSort, sorting } from '@/lib/constants';
 import { Grid } from '@/components/grid';
 import ProductGridItems from '@/components/layout/product-grid-items';
 
+import { Suspense } from 'react';
 import { getProducts } from '@/lib/shopify';
+import Footer from '@/components/layout/footer';
+import FilterList from '@/components/layout/search/filter';
 
-export default async function SearchPage({
-  searchParams,
+export default function SearchLayout({
+  children,
 }: {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  children: React.ReactNode;
 }) {
-  const { sort, q: searchValue } = searchParams as { [key: string]: string };
-
-  const { sortKey, reverse } =
-    sorting.find((item) => item.slug === sort) || defaultSort;
-
-  const products = await getProducts({ sortKey, reverse, query: searchValue });
-  const resultsText = products.length > 1 ? 'results' : 'result';
   return (
-    <>
-      {searchValue ? (
-        <p className="mb-4">
-          {products.length === 0
-            ? 'There are no prodyucts that match your search.'
-            : `Showing ${products.length} ${resultsText} for `}
-          <span className="font-bold">&quot; {searchValue} &quot;"</span>
-        </p>
-      ) : null}
-      {products.length > 0 ? (
-        <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <ProductGridItems products={products} />
-        </Grid>
-      ) : null}
-    </>
+    <Suspense>
+      <div className="mx-auto flex max-w-screen-2xl flex-col gap-8 px-4 pb-4 text-black dark:text-white md:flex-row">
+        <div className="order-first w-full flex-none md:max-w-[125px]"></div>
+        <div className="order-last min-h-screen w-full md:order-none">
+          {children}
+        </div>
+        <div className="order-none flex-none md:order-last md:w-[125px]">
+          <FilterList list={sorting} title="Sort-by" />
+        </div>
+      </div>
+      <Footer />
+    </Suspense>
   );
 }

@@ -40,7 +40,10 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
 
   useEffect(() => {
     if (cart?.totalQuantity !== quantityRef.current) {
-      openCart();
+      if (!isOpen) {
+        openCart();
+      }
+      quantityRef.current = cart?.totalQuantity;
     }
   }, [isOpen, cart?.totalQuantity, quantityRef]);
   return (
@@ -50,7 +53,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
         aria-label="Open cart"
         onClick={openCart}
       >
-        <OpenCart quantity={cart?.totalQuantity} />
+        {!isOpen && <OpenCart quantity={cart?.totalQuantity} />}
       </button>
       <Transition show={isOpen}>
         <Dialog onClose={closeCart} className="relative z-50">
@@ -74,7 +77,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="border-1 fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl dark:border-neutral-700 dark:bg-black/80 dark:text-white md:w-[390px]">
+            <Dialog.Panel className="border-1 fixed bottom-0 right-0 top-0 z-40 flex h-full w-full flex-col border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl dark:border-neutral-700 dark:bg-black/80 dark:text-white md:w-[390px]">
               <div className="flex items-center justify-between">
                 <p className="text-lg font-semibold"> My Cart </p>
 
