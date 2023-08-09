@@ -1,19 +1,19 @@
-import { getMenu } from "@/lib/shopify";
-import Link from "next/link";
-import type { Menu } from "@/lib/shopify/types";
+import { getMenu } from '@/lib/shopify';
+import Link from 'next/link';
+import type { Menu } from '@/lib/shopify/types';
 
-import LogoSquare from "@/components/logo-square";
+import LogoSquare from '@/components/logo-square';
 
-import { SITE_NAME } from "@/constants";
-import { Suspense } from "react";
+import { SITE_NAME } from '@/constants';
+import { Suspense } from 'react';
 
-import Cart from "@/components/cart";
+import Cart from '@/components/cart';
 
-import MobileMenu from "./mobile-menu";
-import Search from "./search";
+import MobileMenu from './mobile-menu';
+import Search from './search';
 
 export default async function Navbar() {
-  const menu = await getMenu("main-menu");
+  const menu = await getMenu('main-menu');
 
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6">
@@ -28,7 +28,7 @@ export default async function Navbar() {
             className="mr-2 flex w-full items-center  justify-center md:w-auto lg:mr-6"
           >
             <LogoSquare />
-            <div className="mr-2 pl-3 flex font-medium uppercase items-center justify-center md:w-auto lg:mr-6 lg:block md:hidden">
+            <div className="mr-2 flex items-center justify-center pl-3 font-medium uppercase md:hidden md:w-auto lg:mr-6 lg:block">
               {SITE_NAME}
             </div>
           </Link>
@@ -39,7 +39,7 @@ export default async function Navbar() {
                 <li key={item.id}>
                   <Link
                     href={item.path}
-                    className="text-neutral-500 unterline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
+                    className="unterline-offset-4 text-neutral-500 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
                   >
                     {item.title}
                   </Link>

@@ -2,6 +2,8 @@ import { getPage } from '@/lib/shopify';
 import { notFound } from 'next/navigation';
 import Prose from '@/components/prose';
 
+export const revalidate = 60 * 60 * 12;
+
 export default async function Page({ params }: { params: { page: string } }) {
   const page = await getPage(params.page);
 
