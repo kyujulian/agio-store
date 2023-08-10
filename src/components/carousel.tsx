@@ -13,7 +13,7 @@ export default async function Carousel() {
   }
 
   return (
-    <div className="w-full overflow-x-auto pb-5 pt-1">
+    <div className="carousel w-full overflow-x-auto pb-5 pt-1">
       <ul className="flex animate-carousel gap-4">
         {[...products, ...products].map((product, i) => (
           <li
@@ -33,6 +33,7 @@ export default async function Carousel() {
                   title: product.title as string,
                   amount: product.priceRange.maxVariantPrice.amount,
                   currencyCode: product.priceRange.maxVariantPrice.currencyCode,
+                  showPrice: false,
                 }}
               />
             </Link>

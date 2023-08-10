@@ -16,6 +16,7 @@ import type { Image } from '@/lib/shopify/types';
 import { GridTileImage } from '@/components/grid/tile';
 import Link from 'next/link';
 import Footer from '@/components/layout/footer';
+import LoadingDots from '@/components/loading-dots';
 
 // export async function generateMetadata({
 //   params,

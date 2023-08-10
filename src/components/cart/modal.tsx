@@ -49,7 +49,10 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
   return (
     <>
       <button
-        className={clsx({ hidden: isOpen, block: !isOpen })}
+        className={clsx('rounded-md bg-white dark:bg-black', {
+          hidden: isOpen,
+          block: !isOpen,
+        })}
         aria-label="Open cart"
         onClick={openCart}
       >
@@ -81,7 +84,11 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
               <div className="flex items-center justify-between">
                 <p className="text-lg font-semibold"> My Cart </p>
 
-                <button aria-label="Close cart" onClick={closeCart}>
+                <button
+                  aria-label="Close cart"
+                  className="rounded-md bg-white dark:bg-black"
+                  onClick={closeCart}
+                >
                   <CloseCart />
                 </button>
               </div>
@@ -208,7 +215,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                   </div>
                   <a
                     href={cart.checkoutUrl}
-                    className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
+                    className="block w-full rounded-full bg-orange-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
                   >
                     {' '}
                     Proceed to Checkout
