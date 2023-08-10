@@ -1,34 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a Shopify powered E-commerce website application created with [Next.js](https://nextjs.org/)
 
-## Getting Started
+and deployed at [Vercel](https://vercel.com/).
 
-First, run the development server:
+It is a fully functional E-commerce website with the following features:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+ - [x] Product Listing
+ - [x] Searching and Sorting
+ - [x] Cart Management using cookies
+ - [x] Secure Checkout using Shopify Checkout API
+ - [x] Order Management using Shopify Admin API
+ - [x] Product variation support and inventory management
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Disclaimers
+I'd Like to state that most of this code is taken from / inspired by a Vercel template on the topic.
 
-## Learn More
+ - [Next.js Shopify Storefront API Example](https://vercel.com/templates/next.js/nextjs-commerce)
 
-To learn more about Next.js, take a look at the following resources:
+That being said, it was great to learn about API integration, data fetching integration with type definitions. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

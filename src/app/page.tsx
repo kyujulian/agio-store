@@ -24,7 +24,6 @@ export default async function Home() {
   return (
     <>
       <Hero />
-      {/* <ThreeItemGrid /> */}
       <Suspense>
         <Carousel />
         <Brands />
