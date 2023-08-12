@@ -11,11 +11,12 @@ export default async function Hero() {
   const mainProduct = heroProducts[0];
 
   return (
-    <div className=" flex h-fit max-h-[90vh] w-full flex-col items-center justify-center overflow-x-hidden">
+    <div className=" overflow- flex h-fit max-h-[90vh] w-screen flex-col items-center justify-center">
       <Image
         src={HeroBackgroundImage}
         alt="hero-bg"
-        className="absolute top-0 z-[-1] w-full min-w-[1280px] overflow-hidden brightness-[60%] "
+        objectFit="cover"
+        className="absolute top-0 z-[-1]  brightness-[60%] "
       />
       <HeroText productUrl={mainProduct.handle} />
     </div>
