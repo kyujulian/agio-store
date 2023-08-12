@@ -10,11 +10,12 @@ It is a fully functional E-commerce website with the following features:
  - [x] Secure Checkout using Shopify Checkout API
  - [x] Order Management using Shopify Admin API
  - [x] Product variation support and inventory management
+ - [x] Automatic Light/dark themes based on system configuration.
 
 
 
 ### Disclaimers
-I'd Like to state that most of this code is taken from / inspired by a Vercel template on the topic.
+I'd Like to state that this is basically a 'recreation' of the Vercel template on the topic, with the sole goal of being a learning experience. 
 
  - [Next.js Shopify Storefront API Example](https://vercel.com/templates/next.js/nextjs-commerce)
 

@@ -27,7 +27,7 @@ export default function HeroText({
         leaveTo="opacity-0"
       >
         <div className=" mt-[100px] flex h-full flex-col items-center justify-center text-white transition-all">
-          <h1 className="py-3  text-center text-[28px] font-bold md:text-[42px] ">
+          <h1 className="py-3  text-center text-[18px] font-bold sm:text-[28px] md:text-[42px] ">
             Born in the Streets, Worn Everywhere
           </h1>
 
@@ -39,10 +39,10 @@ export default function HeroText({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <p className="  w-[600px] py-3 text-center text-[24px] font-light">
+            <p className="w-[600px] py-3 text-center text-[14px] font-light md:text-[24px]">
               Snapback Caps that Define Your Style.
             </p>
-            <div className="mx-auto flex items-center justify-center rounded-md p-4  transition duration-200 hover:scale-110 hover:cursor-pointer  ">
+            <div className="text-md mx-auto flex items-center justify-center rounded-md p-4 transition  duration-200 hover:scale-110 hover:cursor-pointer md:text-lg  ">
               <Link href={`/product/${productUrl}`}>
                 Check out our{' '}
                 <p className="inline font-bold  text-orange-500">

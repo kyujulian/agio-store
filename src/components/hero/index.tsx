@@ -15,7 +15,7 @@ export default async function Hero() {
       <Image
         src={HeroBackgroundImage}
         alt="hero-bg"
-        className="absolute top-0 z-[-1] w-full overflow-hidden brightness-[60%] "
+        className="absolute top-0 z-[-1] w-full min-w-[1280px] overflow-hidden brightness-[60%] "
       />
       <HeroText productUrl={mainProduct.handle} />
     </div>
