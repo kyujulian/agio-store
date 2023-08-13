@@ -218,7 +218,9 @@ export async function getCollections(): Promise<Collection[]> {
       path: '/search',
       updatedAt: new Date().toISOString(),
     },
-    ...reshapeCollections(shopifyCollections),
+    ...reshapeCollections(shopifyCollections).filter(
+      (collection) => !collection.handle.startsWith('hidden'),
+    ),
   ];
 
   return collections;
