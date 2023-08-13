@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { HIDDEN_PRODUCT_TAG } from '@/lib/constants';
+import { getPage } from '@/lib/shopify';
 import {
   getProduct,
   getProducts,
@@ -18,11 +19,44 @@ import Link from 'next/link';
 import Footer from '@/components/layout/footer';
 import LoadingDots from '@/components/loading-dots';
 
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: { handle: string };
-// }) {}
+export async function generateMetadata({
+  params,
+}: {
+  params: { handle: string };
+}): Promise<Metadata> {
+  const product = await getProduct(params.handle);
+
+  if (!product) return notFound();
+
+  const { url, width, height, altText: alt } = product.featuredImage || {};
+
+  const indexable = !product.tags.includes(HIDDEN_PRODUCT_TAG);
+
+  return {
+    title: product.seo.title || product.title,
+    description: product.seo.description || product.description,
+    robots: {
+      index: indexable,
+      follow: indexable,
+      googleBot: {
+        index: indexable,
+        follow: indexable,
+      },
+    },
+    openGraph: url
+      ? {
+          images: [
+            {
+              url,
+              width,
+              height,
+              alt,
+            },
+          ],
+        }
+      : null,
+  };
+}
 
 export default async function ProductPage({
   params,
@@ -36,16 +70,31 @@ export default async function ProductPage({
     return notFound();
   }
 
-  const productJsonLd = {};
+  const productJsonLd = {
+    '@context': 'https://schema.org/',
+    '@type': 'Product',
+    name: product.title,
+    description: product.description,
+    image: product.featuredImage.url,
+    offers: {
+      '@type': 'AggregateOffer',
+      availability: product.availableForSale
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
+      priceCurrency: product.priceRange.minVariantPrice.currencyCode,
+      lowPrice: product.priceRange.minVariantPrice.amount,
+      highPrice: product.priceRange.maxVariantPrice.amount,
+    },
+  };
 
   return (
     <>
-      {/* <script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(productJsonLd),
         }}
-      /> */}
+      />
       <div className="mx-auto max-w-screen-2xl px-4">
         <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12 lg:flex-row">
           <div className="h-full w-full basis-full lg:basis-4/6">

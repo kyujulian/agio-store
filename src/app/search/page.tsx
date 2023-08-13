@@ -7,6 +7,11 @@ import { getProducts } from '@/lib/shopify';
 import { Suspense } from 'react';
 import ProductGridItems from '@/components/layout/product-grid-items';
 
+export const metadata = {
+  title: 'Search',
+  description: 'Search for products in the store.',
+};
+
 export default async function SearchPage({
   searchParams,
 }: {

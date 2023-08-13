@@ -18,7 +18,7 @@ export default async function Hero() {
         objectFit="cover"
         objectPosition="center"
         fill
-        className="top-0 z-[-1]   brightness-[60%] "
+        className="top-0 z-[-1] brightness-[60%] "
       />
       <HeroText productUrl={mainProduct.handle} />
     </div>
