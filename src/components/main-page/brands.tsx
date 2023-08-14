@@ -20,7 +20,7 @@ export default function Brands() {
   const brands = darkMode ? (whiteBrands as Brand[]) : (blackBrands as Brand[]);
   return (
     <div className="flex w-full justify-center bg-neutral-100 py-10 dark:bg-neutral-900">
-      <ul className="flex w-[90%] items-center   justify-around ">
+      <ul className="flex w-[60%] items-center justify-around   md:w-[60%] ">
         {brands.map((brand, index) => {
           return (
             <li key={brand.name}>
